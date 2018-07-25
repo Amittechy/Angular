@@ -1,5 +1,4 @@
 <div class="conatiner" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutGap.xs="0px" fxLayoutAlign.gt-md="space-around center">
-
  <div fxFlex="40" *ngIf="dish">
     <mat-card>
       <mat-card-header>
@@ -22,10 +21,10 @@
 
   <div fxFlex="40">
 
-    <h3> Comments </h3>
+    
 
     <mat-list *ngIf="dish" >
-
+      <h3> Comments </h3>
       <mat-list-item  *ngFor= "let comm of dish.comments">
 
         <p matLine> {{comm.comment}} </p>
