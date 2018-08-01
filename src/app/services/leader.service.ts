@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Leader} from '../shared/leader';
+import { Leader } from '../shared/leader';
 import { LEADERS } from '../shared/leaders';
 @Injectable({
   providedIn: 'root'
@@ -7,11 +7,17 @@ import { LEADERS } from '../shared/leaders';
 export class LeaderService {
 
   constructor() { }
-getLeaders(): Promise<Leader[]> {
-  return Promise.resolve(LEADERS);
+  getLeaders(): Promise<Leader[]> {
+    return new Promise(resolve => {
+      // Simulate server latency with 2 second delay
+        setTimeout(() => resolve(LEADERS), 2000);
+    });
+  }
+  getFeaturedLeader(): Promise<Leader> {
+    return  new Promise(resolve => {
+      // Simulate server latency with 2 second delay
+        setTimeout(() => resolve(LEADERS.filter((dish) => dish.featured)[0]), 2000);
+    });
+  }
 }
-getFeaturedLeader(): Promise<Leader> {
-return Promise.resolve(LEADERS.filter((leader) => leader.featured)[0]);
 
-}
-}

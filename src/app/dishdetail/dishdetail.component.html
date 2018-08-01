@@ -1,12 +1,12 @@
 <div class="conatiner" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="10px" fxLayoutGap.xs="0px" fxLayoutAlign.gt-md="space-around center">
- <div fxFlex="40" *ngIf="dish">
-    <mat-card>
+  <div fxFlex="40">
+    <mat-card *ngIf="dish">
       <mat-card-header>
         <mat-card-title>
           <h3> {{dish.name | uppercase}} </h3>
         </mat-card-title>
       </mat-card-header>
-      <img mat-card-image src={{dish.image}} alt={{dish.name}}>
+      <img mat-card-image src= {{dish.image}} alt= {{dish.name}}>
       <mat-card-content>
         <p matLine>{{dish.description}}</p>
       </mat-card-content>
@@ -19,31 +19,36 @@
     </mat-card>
 
   </div>
+  <div [hidden]="dish">
+      <mat-spinner></mat-spinner>
+      <h4>Loading...Please wait</h4>
+    </div>
+
 
   <div fxFlex="40">
-
-    
-
-    <mat-list *ngIf="dish" >
+ <mat-list *ngIf="dish">
       <h3> Comments </h3>
-      <mat-list-item  *ngFor= "let comm of dish.comments">
+      <mat-list-item *ngFor="let comm of dish.comments">
 
         <p matLine> {{comm.comment}} </p>
         <p matLine> {{comm.rating}} stars</p>
         <p matLine> --{{comm.author}} {{comm.date | date}} </p>
-        
+
       </mat-list-item>
-     
+
     </mat-list>
 
   </div>
+  <div [hidden]="dish">
+    <mat-spinner></mat-spinner>
+    <h4>Loading...Please wait</h4>
+  </div>
 
 </div>
-    <!--
+<!--
      <mat-list-item>
         <p matLine> {{dish['comments'][2]['comment']}} </p>
         <p matLine> {{dish['comments'][2]['rating']}} Stars </p>
         <p matLine>{{dish['comments'][2]['author']}}  {{dish['comments'][2]['date'] | date}}</p>  
       </mat-list-item>
     -->
-   
