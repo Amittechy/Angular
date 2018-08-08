@@ -1,7 +1,7 @@
 <div class="container" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign.gt-md="space-around center"
   fxLayoutGap="10px">
-<div fxFlex>
-    <mat-card *ngIf="dish">
+<div fxFlex *ngIf="dish" [@expand] = "expand">
+    <mat-card >
         <mat-card-header>
           <div mat-card-avatar></div>
           <mat-card-title>
@@ -14,18 +14,19 @@
           </p>
         </mat-card-content>
       </mat-card>
-      <div [hidden]="dish ||dishErrMess">
-        <mat-spinner></mat-spinner>
-        <h4>Loading...Please wait</h4>
-      </div>
-      <div *ngIf="dishErrMess">
-        <h2>Error</h2>
-        <h4>{{errMess}}</h4>
-      </div>
+</div>
+
+<div [hidden]="dish ||dishErrMess">
+  <mat-spinner></mat-spinner>
+  <h4>Loading...Please wait</h4>
+</div>
+<div *ngIf="dishErrMess">
+  <h2>Error</h2>
+  <h4>{{errMess}}</h4>
 </div>
   
-<div fxFlex>
-    <mat-card *ngIf="promotion">
+<div fxFlex *ngIf="promotion" [@expand] = "expand">
+    <mat-card >
         <mat-card-header>
           <div mat-card-avatar></div>
           <mat-card-title>
@@ -38,18 +39,19 @@
           </p>
         </mat-card-content>
       </mat-card>
-      <div [hidden]="dish || promoErrMess">
-        <mat-spinner></mat-spinner>
-        <h4>Loading...Please wait</h4>
-      </div>
-      <div *ngIf="promoErrMess">
-        <h2>Error</h2>
-        <h4>{{promoErrMess}}</h4>
-      </div>
+</div>
+
+<div [hidden]="dish || promoErrMess">
+  <mat-spinner></mat-spinner>
+  <h4>Loading...Please wait</h4>
+</div>
+<div *ngIf="promoErrMess">
+  <h2>Error</h2>
+  <h4>{{promoErrMess}}</h4>
 </div>
  
-<div fxFlex>
-    <mat-card *ngIf="leader" fxFlex>
+<div fxFlex *ngIf="leader" [@expand] = "expand" >
+    <mat-card fxFlex>
         <mat-card-header>
           <div mat-card-avatar></div>
           <mat-card-title>
@@ -62,16 +64,17 @@
           </p>
         </mat-card-content>
       </mat-card>
-      
-      <div [hidden]="dish || leaderErrMess">
-        <mat-spinner></mat-spinner>
-        <h4>Loading...Please wait</h4>
-      </div>
-      <div *ngIf="leaderErrMess">
-        <h2>Error</h2>
-        <h4>{{leaderErrMess}}</h4>
-      </div>
     
+</div>
+
+
+<div [hidden]="dish || leaderErrMess">
+  <mat-spinner></mat-spinner>
+  <h4>Loading...Please wait</h4>
+</div>
+<div *ngIf="leaderErrMess">
+  <h2>Error</h2>
+  <h4>{{leaderErrMess}}</h4>
 </div>
   
 </div>
