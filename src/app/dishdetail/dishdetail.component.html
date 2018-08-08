@@ -25,13 +25,13 @@
       </mat-card-actions>
 
     </mat-card>
-    <div [hidden]="dish || errMess">
+    <div [hidden]="dish || dishErrMess">
       <mat-spinner></mat-spinner>
       <h4>Loading...Please wait</h4>
     </div>
-    <div *ngIf="errMess">
+    <div *ngIf="dishErrMess">
       <h2>Error</h2>
-      <h4>{{errMess}}</h4>
+      <h4>{{dishErrMess}}</h4>
     </div>
   </div>
   
@@ -83,13 +83,13 @@
       
       </div>
        
-  <div [hidden]="dish || errMess">
+  <div [hidden]="dish || dishErrMess">
     <mat-spinner></mat-spinner>
     <h4>Loading...Please wait</h4>
   </div>
-  <div *ngIf="errMess">
+  <div *ngIf="dishErrMess">
     <h2>Error</h2>
-    <h4>{{errMess}}</h4>
+    <h4>{{dishErrMess}}</h4>
   </div>
     </div>
     

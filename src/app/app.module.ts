@@ -20,6 +20,8 @@ import {MatSliderModule} from '@angular/material/slider';
 import { HttpClientModule } from '@angular/common/http';
 import {baseURL} from './shared/baseurl';
 import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
+import { RestangularModule, Restangular} from 'ngx-restangular';
+import { RestangularConfigFactory } from './shared/restConfig';
 
 
 import 'hammerjs';
@@ -72,7 +74,8 @@ import { LoginComponent } from './login/login.component';
     FormsModule,
     ReactiveFormsModule,
     MatSliderModule,
-    HttpClientModule
+    HttpClientModule,
+    RestangularModule.forRoot(RestangularConfigFactory)
 
   ],
   providers: [ DishService, PromotionService, LeaderService , ProcessHTTPMsgService ,  {provide: 'BaseURL', useValue: baseURL}],
