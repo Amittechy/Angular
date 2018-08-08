@@ -5,6 +5,7 @@ import { Dish } from '../shared/dish';
 import { DishService } from '../services/dish.service';
 import { switchMap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Comment} from '../shared/comment';
 
 
 
@@ -19,11 +20,14 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class DishdetailComponent implements OnInit {
   @ViewChild('rform') ratingFormDirective;
   dish: Dish;
+  dishcopy = null;
   dishIds: number[];
   prev: number;
   next: number;
   ratingForm: FormGroup;
+  comment: Comment;
  dishErrMess: String;
+
 
 
 
@@ -54,7 +58,8 @@ export class DishdetailComponent implements OnInit {
   ngOnInit() {
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
     this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(+params['id'])))
-      .subscribe(dish => { this.dish = dish; this.setPrevNext(dish.id); }, errmess => this.dishErrMess = <any>errmess.message);
+      // tslint:disable-next-line:max-line-length
+      .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); }, errmess => this.dishErrMess = <any>errmess.message);
   }
   createRatingForm(): void {
     this.ratingForm = this.fb.group({
@@ -95,16 +100,15 @@ export class DishdetailComponent implements OnInit {
   }
 
   onSubmit() {
-    const d = new Date().toISOString();
-   this.dish.comments.push({
-      'comment': this.ratingForm.value.comment,
-      'rating': this.ratingForm.value.rating,
-      'author' : this.ratingForm.value.author,
-      'date': d
-    });
+    this.comment = this.ratingForm.value;
+    this.comment.date = new Date().toISOString();
+    console.log(this.comment);
+    this.dish.comments.push(this.comment);
+    this.dishcopy.save()
+      .subscribe(dish => { this.dish = dish; console.log(this.dish); });
     this.ratingForm.reset({
       author: '',
-      rating: '',
+      rating: 5 ,
       comment: ''
     });
     this.ratingFormDirective.resetForm();
