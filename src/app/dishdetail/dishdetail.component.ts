@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, Inject} from '@angular/core';
 import { Params, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import { Dish } from '../shared/dish';
 import { DishService } from '../services/dish.service';
 import { switchMap } from 'rxjs/operators';
@@ -12,10 +13,24 @@ import { Comment} from '../shared/comment';
 
 
 
+
 @Component({
   selector: 'app-dishdetail',
   templateUrl: './dishdetail.component.html',
-  styleUrls: ['./dishdetail.component.scss']
+  styleUrls: ['./dishdetail.component.scss'],
+  animations: [
+    trigger('visibility', [
+        state('shown', style({
+            transform: 'scale(1.0)',
+            opacity: 1
+        })),
+        state('hidden', style({
+            transform: 'scale(0.5)',
+            opacity: 0
+        })),
+        transition('* => *', animate('0.5s ease-in-out'))
+    ])
+  ]
 })
 export class DishdetailComponent implements OnInit {
   @ViewChild('rform') ratingFormDirective;
@@ -27,6 +42,7 @@ export class DishdetailComponent implements OnInit {
   ratingForm: FormGroup;
   comment: Comment;
  dishErrMess: String;
+ visibility = 'shown';
 
 
 
@@ -57,9 +73,9 @@ export class DishdetailComponent implements OnInit {
 
   ngOnInit() {
     this.dishservice.getDishIds().subscribe(dishIds => this.dishIds = dishIds);
-    this.route.params.pipe(switchMap((params: Params) => this.dishservice.getDish(+params['id'])))
+    this.route.params.pipe(switchMap((params: Params) => { this.visibility = 'hidden'; return this.dishservice.getDish(+params['id']); }))
       // tslint:disable-next-line:max-line-length
-      .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); }, errmess => this.dishErrMess = <any>errmess.message);
+      .subscribe(dish => { this.dish = dish; this.dishcopy = dish; this.setPrevNext(dish.id); this.visibility = 'shown';  }, errmess => this.dishErrMess = <any>errmess.message);
   }
   createRatingForm(): void {
     this.ratingForm = this.fb.group({
