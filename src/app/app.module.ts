@@ -17,6 +17,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { ReactiveFormsModule } from '@angular/forms';
 import {MatSliderModule} from '@angular/material/slider';
+import { HttpClientModule } from '@angular/common/http';
+import {baseURL} from './shared/baseurl';
+import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
 
 
 import 'hammerjs';
@@ -68,10 +71,11 @@ import { LoginComponent } from './login/login.component';
     MatDialogModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSliderModule
+    MatSliderModule,
+    HttpClientModule
 
   ],
-  providers: [ DishService, PromotionService, LeaderService],
+  providers: [ DishService, PromotionService, LeaderService , ProcessHTTPMsgService ,  {provide: 'BaseURL', useValue: baseURL}],
   entryComponents: [LoginComponent],
   bootstrap: [AppComponent]
 
