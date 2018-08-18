@@ -34,34 +34,65 @@
             <i class="fa fa-envelope-o"></i> Email</a>
         </div>
       </div>
+
       <div fxFlex="40">
-        <h4>Map of our Location</h4>
+
+        <h4>Map Location</h4>
+
       </div>
     </div>
   </div>
   <div fxFlex fxFlexOffset="20px" class="form-size">
-    <h3>Send Us Feedback</h3>
+    <div *ngIf="formsubmit">
+      <div *ngIf="retfeedback" [@expand]="">
+
+        <h3>Send us feedback</h3>
+        <h4>Your Submission</h4>
+        <mat-list>
+          <mat-list-item>
+            <p matLine> First Name: {{retfeedback.firstname}}</p>
+            <p matLine> Last Name: {{retfeedback.lastname}}</p>
+            <p matLine>Tel.Num: {{retfeedback.telnum}}</p>
+            <p matLine>Email: {{retfeedback.email}}</p>
+            <p matLine> Contact You?: {{retfeedback.agree}}</p>
+            <p matLine>How ?: {{retfeedback.contacttype}}</p>
+            <p matLine> Feedback: {{retfeedback.message}}</p>
+          </mat-list-item>
+
+        </mat-list>
+
+      </div>
+      <div [hidden]="retfeedback">
+        <mat-spinner> </mat-spinner>
+        <h4>Submitting Your Form</h4>
+      </div>
+
+
+    </div>
+
     <p>{{ feedbackForm.value | json }} {{ feedbackForm.status | json }}</p>
-    <form novalidate [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
+    <form novalidate [@expand]="" [hidden]="formsubmit" [formGroup]="feedbackForm" #fform="ngForm" (ngSubmit)="onSubmit()">
       <p>
         <mat-form-field class="half-width">
           <input matInput formControlName="firstname" placeholder="First Name" type="text" required>
-          <mat-error *ngIf="formErrors.firstname">{{formErrors.firstname}} 
-          
+          <mat-error *ngIf="formErrors.firstname">{{formErrors.firstname}}
+
           </mat-error>
 
         </mat-form-field>
         <mat-form-field class="half-width">
           <input matInput formControlName="lastname" placeholder="Last Name" type="text" required>
           <mat-error *ngIf="formErrors.lastname">{{formErrors.lastname}}
-    
+
           </mat-error>
         </mat-form-field>
+      </p>
+      <p>
 
         <mat-form-field class="half-width">
           <input matInput formControlName="telnum" placeholder="Tel.Num" type="tel" pattern="[0-9]*" required>
           <mat-error *ngIf="formErrors.telnum">{{formErrors.telnum}}
-          
+
           </mat-error>
         </mat-form-field>
 
@@ -92,7 +123,7 @@
       <p>
         <mat-form-field class="full-width">
           <textarea matInput formControlName="message" placeholder="Your Feedback" rows="12">
-          </textarea>
+            </textarea>
         </mat-form-field>
       </p>
       <button type="submit" mat-button class="background-primary text-floral-white" [disabled]="feedbackForm.invalid">Submit</button>
@@ -100,4 +131,9 @@
     </form>
 
   </div>
+
+
+
+
+
 </div>

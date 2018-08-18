@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Dish } from '../shared/dish';
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
 import { Restangular } from 'ngx-restangular';
 
 
@@ -12,7 +11,7 @@ import { Restangular } from 'ngx-restangular';
 })
 export class DishService {
 
-  constructor(private http: HttpClient, private restangular: Restangular) { }
+  constructor(private restangular: Restangular) { }
 
 
   getDishes(): Observable<Dish[]> {

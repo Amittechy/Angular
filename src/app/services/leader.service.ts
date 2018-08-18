@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Leader } from '../shared/leader';
-import { LEADERS } from '../shared/leaders';
+import { Restangular } from 'ngx-restangular';
 
-import {of, Observable } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map} from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
 export class LeaderService {
 
-  constructor() { }
+  constructor(private restangular: Restangular) { }
   getLeaders(): Observable<Leader[]> {
-    return of(LEADERS).pipe(delay(2000));
+    return this.restangular.all('leaders').getList();
   }
   getFeaturedLeader(): Observable<Leader> {
-    return of(LEADERS.filter((dish) => dish.featured)[0]).pipe(delay(2000));
+    return this.restangular.all('leaders').getList({featured: true}).pipe(map(leader => leader[0]));
   }
 }
 
